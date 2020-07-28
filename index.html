@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/img/icon/apple-touch-icon.png"/>
+    <link rel="icon" sizes="32x32" href="./assets/img/icon/icon-32x32.ico">
+    <link rel="icon" sizes="16x16" href="./assets/img/icon/icon-16x16.ico">
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="./assets/css/materialize.min.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <meta name="theme-color" content="#38003c" />
+    <title>Premier League PWA</title>
+  </head>
+
+  <body>
+    <nav class="navbar-bottom hide-on-large-only row">
+      <ul class="bottom-nav" id="navv" style="text-align: center;"></ul>
+    </nav>
+
+    <nav class="top-nav hide-on-med-and-down" role="navigation">
+      <div class="nav-wrapper container">
+        <a href="#home" class="brand-logo" id="logo-container"
+          ><b>Premier League</b></a
+        >
+        <!-- <a href="#" class="bottom-nav row" data-target="nav-mobile">&#;</a> -->
+        <ul class="topnav right hide-on-med-and-down"></ul>
+        <!-- <ul class="bottom-nav row" id="nav-mobile"></ul> -->
+      </div>
+    </nav>
+
+    <div id="body-content" class="body-content"></div>
+
+    <div class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.onload = function () {
+        setTimeout(function () {
+          document.querySelector(".body-content").style.display = "block";
+          document.querySelector(".preloader-wrapper").style.display = "none";
+        }, 2000);
+      };
+    </script>
+    <script src="./assets/js/materialize.min.js"></script>
+    <script src="./assets/js/nav.js"></script>
+    <script src="./assets/js/idb.js"></script>
+    <script src="./assets/js/db.js"></script>
+    <script src="./assets/js/api.js"></script>
+    <script src="./assets/js/reg-sw.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  </body>
+</html>

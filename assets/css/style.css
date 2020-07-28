@@ -1,0 +1,107 @@
+nav {
+  box-shadow: none;
+}
+
+.brand-logo {
+  font-size: 18px !important;
+}
+
+.preloader-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.tabs .tab a {
+  color: #38003c !important;
+  font-weight: 300;
+}
+
+.tabs-desc {
+  font-weight: 400;
+}
+
+.tabs .tab a:focus,
+.tabs .tab a:focus.active {
+  background-color: rgba(115, 73, 182, 0.2);
+  outline: none;
+}
+
+.tabs .indicator {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background-color: royalblue;
+  will-change: left, right;
+}
+
+.top-nav {
+  background-color: #38003c;
+}
+
+.navbar-bottom {
+  background-color: white;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 999999;
+  height: 50px;
+}
+
+nav.row {
+  margin-bottom: 0;
+}
+
+.navbar-bottom .material-icons {
+  font-size: 24px;
+  padding: 0;
+}
+
+.navbar-bottom li a {
+  /* width: 50%; */
+  color: #76766f;
+  padding-bottom: 15px;
+  /* padding: 0 0 15px 0; */
+}
+
+/* .navbar-bottom li i{
+  line-height: 64;
+  height: 64;
+} */
+
+/* .navbar-bottom li a:focus {
+  color: red !important;
+} */
+a.waves-effect:hover {
+  color: #38003c !important;
+}
+
+@media only screen and (max-width: 992px) {
+  body {
+    background-color: #38003c;
+  }
+
+  .navigationDetail {
+    background-color: #38003c;
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  body {
+    background-color: #dfd3c3;
+  }
+  /* .headingTeamMember { */
+  /* background-color: white;
+    color: black; */
+  /* background-color: #381a3c;
+    color: white;
+  } */
+
+  .navigationDetail {
+    background-color: #38003c;
+  }
+}
