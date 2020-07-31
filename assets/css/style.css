@@ -73,12 +73,13 @@ nav.row {
   height: 64;
 } */
 
-/* .navbar-bottom li a:focus {
-  color: red !important;
-} */
-a.waves-effect:hover {
+.navbar-bottom li a:focus {
   color: #38003c !important;
 }
+/*
+a.waves-effect:hover {
+  color: #38003c !important;
+} */
 
 @media only screen and (max-width: 992px) {
   body {
