@@ -10,13 +10,10 @@
     />
     <link rel="icon" sizes="32x32" href="../assets/img/icon/icon-32x32.ico" />
     <link rel="icon" sizes="16x16" href="../assets/img/icon/icon-16x16.ico" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
     <link rel="manifest" href="../manifest.json" />
     <link rel="stylesheet" href="../assets/css/materialize.min.css" />
     <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="../assets/css/material-icon.css">
     <meta name="theme-color" content="#38003c" />
     <title>Premier League PWA</title>
   </head>
@@ -82,76 +79,14 @@
       </div>
     </div>
 
-    <script>
-      window.onload = function () {
-        setTimeout(function () {
-          document.querySelector(".body-content").style.display = "block";
-          document.querySelector(".preloader-wrapper").style.display = "none";
-        }, 2000);
-      };
 
-      document.addEventListener("DOMContentLoaded", () => {
-        var elems = document.querySelectorAll(".tabs");
-        M.Tabs.init(elems);
-
-        var item = getTeam();
-        getMatch();
-
-        let urlParams = new URLSearchParams(window.location.search);
-        let id = Number(urlParams.get("id"));
-        // checkFavorite(id);
-
-        var save = document.getElementById("save");
-        var del = document.getElementById("delete");
-        checkFavorite(id)
-          .then((msg) => {
-            console.log(msg);
-            save.style.display = "none";
-            del.style.display = "block";
-          })
-          .catch((msg) => {
-            console.log(msg);
-            save.style.display = "block";
-            del.style.display = "none";
-          });
-
-        save.onclick = function () {
-          console.log("Tombol save di klik.");
-          item.then(function (team) {
-            saveFavorite(team);
-          });
-          save.style.display = "none";
-          del.style.display = "block";
-        };
-
-        del.onclick = function () {
-          console.log("Tombol delete di klik.");
-          swal({
-            title: "Are you sure?",
-            // text: "Once deleted, you will not be able to recover this imaginary file!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-          }).then((willDelete) => {
-            if (willDelete) {
-              // swal("Club berhasil dihapus dari daftar favorit!", {
-              //   icon: "success",
-              // });
-              deleteFavorite(id);
-              del.style.display = "none";
-              save.style.display = "block";
-            } else {
-              swal("Club tidak jadi dihapus dari daftar favorit!");
-            }
-          });
-        };
-      });
-    </script>
+    <script src="../assets/js/on-load.js"></script>
+    <script src="../assets/js/detail-team.js"></script>
     <script src="../assets/js/materialize.min.js"></script>
+    <script src="../assets/js/sweetalert.min.js"></script>
     <script src="../assets/js/idb.js"></script>
     <script src="../assets/js/db.js"></script>
     <script src="../assets/js/api.js"></script>
     <script src="../assets/js/reg-sw.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   </body>
 </html>

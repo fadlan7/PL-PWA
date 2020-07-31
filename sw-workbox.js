@@ -2,8 +2,6 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox
 
 console.log("Workbox :" + workbox ? "successfully loaded" : "failed to load")
 
-
-
 workbox.precaching.precacheAndRoute([
   { url: "/index.html", revision: "1" },
   { url: "/nav.html", revision: "1" },
@@ -13,12 +11,19 @@ workbox.precaching.precacheAndRoute([
 
   { url: "/assets/css/materialize.min.css", revision: "1" },
   { url: "/assets/css/style.css", revision: "1" },
+  { url: "/assets/css/material-icon.css", revision: "1" },
+
+  { url: "/assets/font/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2", revision: "1" },
+
   { url: "/assets/js/api.js", revision: "1" },
   { url: "/assets/js/db.js", revision: "1" },
   { url: "/assets/js/idb.js", revision: "1" },
   { url: "/assets/js/materialize.min.js", revision: "1" },
   { url: "/assets/js/nav.js", revision: "1" },
   { url: "/assets/js/reg-sw.js", revision: "1" },
+  { url: "/assets/js/detail-team.js", revision: "1" },
+  { url: "/assets/js/on-load.js", revision: "1" },
+  { url: "/assets/js/sweetalert.min.js", revision: "1" },
 
   { url: "/assets/img/icon/apple-touch-icon.png", revision: "1" },
   { url: "/assets/img/icon/icon-384x384.png", revision: "1" },
@@ -37,7 +42,10 @@ workbox.precaching.precacheAndRoute([
   { url: "/pages/team-favorite.html", revision: "1" },
   { url: "/pages/about.html", revision: "1" },
   { url: "/pages/detail-team.html", revision: "1" },
-]);
+], {
+  // Ignore all URL parameters.
+  ignoreURLParametersMatching: [/.*/]
+});
 
 workbox.routing.registerRoute(
   /\.(?:css|js)$/,
@@ -53,7 +61,7 @@ workbox.routing.registerRoute(
 )
 
 workbox.routing.registerRoute(
-  new RegExp("https://api.football-data.org"),
+  ({url}) => url.origin === 'https://api.football-data.org',
   new workbox.strategies.NetworkFirst({
     cacheName: "ApiFootball",
     plugins: [
@@ -69,34 +77,18 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-  new RegExp("https://fonts.googleapis.com/icon?family=Material+Icons"),
+  ({url}) => url.origin === 'https://upload.wikimedia.org',
   new workbox.strategies.CacheFirst({
-    cacheName: "google-fonts-webfont",
-    plugins: [
-      new workbox.cacheableResponse.CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-      new workbox.expiration.ExpirationPlugin({
-        maxAgeSeconds: 60 * 60 * 24 * 365,
-        maxEntries: 30,
-      }),
-    ],
-  })
-);
-
-workbox.routing.registerRoute(
-  new RegExp("https://unpkg.com/sweetalert/dist/sweetalert.min.js"),
-  new workbox.strategies.CacheFirst({
-    cacheName: "sweetalert",
-    plugins: [
-      new workbox.expiration.ExpirationPlugin({
-        maxEntries: 100,
-        maxAgeSeconds: 60 * 60 * 24 * 30,
-      }),
-      new workbox.cacheableResponse.CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-    ],
+      cacheName: 'team-logo',
+      plugins: [
+          new workbox.expiration.ExpirationPlugin({
+              maxEntries: 100,
+              maxAgeSeconds: 60 * 60 * 24 * 30
+          }),
+          new workbox.cacheableResponse.CacheableResponsePlugin({
+              statuses: [0, 200]
+          })
+      ]
   })
 );
 

@@ -22,8 +22,16 @@ document.addEventListener("DOMContentLoaded", () => {
             M.Sidenav.getInstance(sidenav).close();
 
             // Muat konten halaman yang dipanggil
-            page = event.target.getAttribute("href").substr(1);
-            loadPage(page);
+            // page = event.target.getAttribute("href").substr(1);
+            // loadPage(page);
+
+            if(event.target.getAttribute("href")===null){
+              page = event.currentTarget.getAttribute("href").substr(1);
+              loadPage(page)
+            }else{
+              page = event.target.getAttribute("href").substr(1);
+              loadPage(page);
+            }
           });
         });
       }
@@ -47,6 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
           getKlasemen();
         } else if (page === "team-favorite") {
           getSavedFavorite();
+        } else if (page==="about"){
+          getAbout();
         } else {
           getKlasemen();
         }

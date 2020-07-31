@@ -138,22 +138,37 @@ function getMatch() {
     });
 }
 
+function getAbout() {
+  if ("caches" in window) {
+    caches.match(STANDINGS).then((response) => {
+      if (response) {
+        response.json().then(() => {
+          showAbout();
+        });
+      }
+    });
+  }
+
+  fetchApi(STANDINGS)
+    .then(status)
+    .then(json)
+    .then(() => {
+      showAbout();
+    })
+    .catch(error);
+}
+
 function showKlasemen(data) {
-  let klasemensHTML = "";
+  let klasemenHTML = "";
   data.standings[0].table.forEach((standing) => {
     let logoTeam = standing.team.crestUrl;
-    if (logoTeam == null || logoTeam == "") {
-      logoTeam = "img/icon/error.png";
-    } else {
-      logoTeam = logoTeam.replace(/^http:\/\//i, "https://");
-    }
 
-    klasemensHTML += `
+    klasemenHTML += `
     <tr>
       <td>${standing.position}</td>
       <td>
         <a href="./pages/detail-team.html?id=${standing.team.id}">
-          <img src="${logoTeam}" width="40px" alt="badge" alt="${standing.team.name}"/>
+          <img src="${logoTeam}" width="40px" alt="badge" alt="${standing.team.name}" onerror="this.src='../img/icon/error.png'"/>
         </a>
       </td>
       <td>
@@ -173,7 +188,7 @@ function showKlasemen(data) {
     `;
   });
   // Sisipkan komponen ke dalam elemen table dengan id #klasemen
-  document.getElementById("klasemen").innerHTML = klasemensHTML;
+  document.getElementById("klasemen").innerHTML = klasemenHTML;
 }
 
 function showTeam(data) {
@@ -181,11 +196,6 @@ function showTeam(data) {
   let info = "";
   let overviewTeamHTML = document.getElementById("overview");
   let logoTeam = data.crestUrl;
-  if (logoTeam == null || logoTeam == "") {
-    logoTeam = "img/icon/error.png";
-  } else {
-    logoTeam = logoTeam.replace(/^http:\/\//i, "https://");
-  }
 
   info += `
   <div class="container">
@@ -193,7 +203,7 @@ function showTeam(data) {
                 <div class="row">
                 <div class="col s3 l5"></div>
                   <div class="col s6 l2" style="margin-bottom: 0; padding:0; ">
-                      <img src="${logoTeam}" alt="${data.name}" style="padding-top: 2rem; width:100%; height: auto;" align="middle" >
+                      <img src="${logoTeam}" onerror="this.src='../img/icon/error.png'" alt="${data.name}" style="padding-top: 2rem; width:100%; height: auto;" align="middle" >
                       <span class="card-title" style="font-weight: bold">${data.name}</span>
                   </div>
                 </div>
@@ -334,16 +344,11 @@ function getSavedFavorite() {
 
     teams.forEach((team) => {
       let logoTeam = team.crestUrl;
-      if (logoTeam == null || logoTeam == "") {
-        logoTeam = "img/icon/error.png";
-      } else {
-        logoTeam = logoTeam.replace(/^http:\/\//i, "https://");
-      }
 
       favHTML += `
           <tr>
           <td>
-            <img src="${logoTeam}" width="70px" alt="${team.name}">
+            <img src="${logoTeam}" width="70px" onerror="this.src='../img/icon/error.png'" alt="${team.name}">
           </td>
           <td>${team.name}</td>
           <td class="center">
@@ -356,6 +361,17 @@ function getSavedFavorite() {
     // Sisipkan komponen card ke dalam elemen dengan id #team-favorite
     document.getElementById("team-favorite").innerHTML = favHTML;
   });
+}
+
+function showAbout() {
+  let  aboutHTML = `
+      <div class="card col s12 center" style="overflow: auto; min-height: 450px;">
+        <h4>About Me</h4>
+        <p>Fadlan Sayyidul Anam</p>
+      </div>
+    `;
+  // Sisipkan komponen card ke dalam elemen dengan id #content
+  document.getElementById("about").innerHTML = aboutHTML;
 }
 
 let deleteOnClick = (team) => {
